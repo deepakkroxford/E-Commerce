@@ -1,10 +1,13 @@
 package com.example.eCommerce.service;
 
 import java.util.List;
+
+import com.example.eCommerce.DTO.CategoryDTO;
+import com.example.eCommerce.DTO.CategoryResponse;
 import com.example.eCommerce.model.Category;
 public interface CategoryService {
-    List<Category> getCategoryList();
-    void addCategory(Category category);
-    String deleteCategory(Long categoryId);
-    Category updateCategory(Category category,Long categoryId);
+    CategoryResponse getCategoryList(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+    CategoryDTO addCategory(CategoryDTO categoryDTO);
+    CategoryDTO deleteCategory(Long categoryId);
+    CategoryDTO updateCategory(CategoryDTO category,Long categoryId);
 }
