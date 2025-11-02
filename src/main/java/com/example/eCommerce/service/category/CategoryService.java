@@ -1,10 +1,8 @@
-package com.example.eCommerce.service;
+package com.example.eCommerce.service.category;
 
-import java.util.List;
+import com.example.eCommerce.DTO.category.CategoryDTO;
+import com.example.eCommerce.DTO.category.CategoryResponse;
 
-import com.example.eCommerce.DTO.CategoryDTO;
-import com.example.eCommerce.DTO.CategoryResponse;
-import com.example.eCommerce.model.Category;
 public interface CategoryService {
     CategoryResponse getCategoryList(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
     CategoryDTO addCategory(CategoryDTO categoryDTO);

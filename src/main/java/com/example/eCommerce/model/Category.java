@@ -1,11 +1,14 @@
 package com.example.eCommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,5 +23,10 @@ public class Category {
     @NotBlank
     @Size(min = 5, message = "Category name must contain atleast 5 character")
     private String categoryName;
+
+
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
+    private List<Product> products;
 
 }

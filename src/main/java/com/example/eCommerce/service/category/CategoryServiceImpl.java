@@ -1,6 +1,6 @@
-package com.example.eCommerce.service;
-import com.example.eCommerce.DTO.CategoryDTO;
-import com.example.eCommerce.DTO.CategoryResponse;
+package com.example.eCommerce.service.category;
+import com.example.eCommerce.DTO.category.CategoryDTO;
+import com.example.eCommerce.DTO.category.CategoryResponse;
 import com.example.eCommerce.exception.ApiException;
 import com.example.eCommerce.exception.ResourceNotFoundException;
 import com.example.eCommerce.model.Category;
