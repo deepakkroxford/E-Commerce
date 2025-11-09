@@ -78,9 +78,6 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> productPage = productRepository.findAll(pageDetails);
         List<Product> productList = productPage.getContent();
 
-        if(productList.isEmpty()) {
-            throw new ApiException("No Product Exists");
-        } else {
             List<ProductDTO> productDTOS = productList.stream().map
                             (product -> modelMapper.map(product, ProductDTO.class))
                     .toList();
@@ -92,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setTotalPages(productPage.getTotalPages());
             productResponse.setLastPage(productPage.isLast());
             return productResponse;
-        }
+
     }
 
     @Override

@@ -6,11 +6,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name ="products")
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +33,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User user;
 }
