@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.HttpHeaders;
 import java.util.*;
 
 @RestController
@@ -62,13 +63,12 @@ public class AuthController {
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
         List<String> roles = userDetails.getAuthorities().
                 stream().map(item -> item.getAuthority()).
                 toList();
-        LoginResponse loginResponse = new LoginResponse(userDetails.getId(), userDetails.getUsername(),
-                jwtToken, roles);
-        return ResponseEntity.ok(loginResponse);
+        LoginResponse loginResponse = new LoginResponse(userDetails.getId(), userDetails.getUsername(), roles);
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(loginResponse);
     }
 
     @PostMapping("/signup")
