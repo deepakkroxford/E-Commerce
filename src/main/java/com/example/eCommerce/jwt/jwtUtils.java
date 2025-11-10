@@ -1,5 +1,4 @@
 package com.example.eCommerce.jwt;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.io.Decoders;
@@ -9,14 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
-
 import com.example.eCommerce.jwt.service.UserDetailsImpl;
-
 import jakarta.servlet.http.Cookie;
-
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
@@ -48,9 +43,8 @@ public class jwtUtils {
     // }
 
     // Getting Jwt from the cookies
-
     public String getJwtFromCookies(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookieName);
+        Cookie cookie = WebUtils.getCookie(request, "springBootEcommerce");
         if(cookie!= null) {
             return cookie.getValue();
         }else {
@@ -61,11 +55,20 @@ public class jwtUtils {
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrinciple) {
         String jwt = generateTokenFromUsername(userPrinciple.getUsername());
-        ResponseCookie cookie = ResponseCookie.from(jwtCookieName, jwt).
+        ResponseCookie cookie = ResponseCookie.from("springBootEcommerce", jwt).
         path("/api").
         maxAge(24*60*60)
         .httpOnly(false).
         build();
+        return cookie;
+    }
+
+    public ResponseCookie getCleanJwtCookies() {
+        ResponseCookie cookie = ResponseCookie.from("springBootEcommerce", null).
+                path("/api").
+                maxAge(24*60*60)
+                .httpOnly(false).
+                build();
         return cookie;
     }
 

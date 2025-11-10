@@ -32,6 +32,5 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         map.put("path", request.getServletPath());
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), map);
-
     }
 }

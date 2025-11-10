@@ -26,6 +26,4 @@ public class Role {
     public Role(AppRole appRole) {
         this.appRole = appRole;
     }
-
-
 }
