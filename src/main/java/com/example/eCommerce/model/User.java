@@ -88,5 +88,13 @@ public class User {
     private Set<Product> products = new HashSet<>();
 
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true)
+    private Cart cart;
+
+
+
 
 }
