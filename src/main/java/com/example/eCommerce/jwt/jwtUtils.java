@@ -32,15 +32,6 @@ public class jwtUtils {
     @Value("${spring.app.jwtCookieName}")
     private String jwtCookieName;
 
-    //Getting jwt from header
-    // public String getJwtHeader(HttpServletRequest request) {
-    //     String bearerToken = request.getHeader("Authorization");
-    //     logger.debug("Bearer Token: {}", bearerToken);
-    //     if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-    //         return bearerToken.substring(7);
-    //     }
-    //     return null;
-    // }
 
     // Getting Jwt from the cookies
     public String getJwtFromCookies(HttpServletRequest request) {
@@ -52,6 +43,7 @@ public class jwtUtils {
         }
     }
 
+    // Getting Jwt from the Headers
     public String getJwtFromHeader(HttpServletRequest request) {
        String bearerToken = request.getHeader("Authorization");
         logger.debug("Bearer Token: {}", bearerToken);
@@ -61,16 +53,16 @@ public class jwtUtils {
              return null;
     }
 
-
+    // Adding   JWT  to Cookies
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrinciple) {
         String jwt = generateTokenFromUsername(userPrinciple.getUsername());
         ResponseCookie cookie = ResponseCookie.from("springBootEcommerce", jwt).
         path("/api").
         maxAge(24*60*60)
-        .httpOnly(false).
-        build();
+        .httpOnly(false).secure(false).build();
         return cookie;
     }
+
 
     public ResponseCookie getCleanJwtCookies() {
         ResponseCookie cookie = ResponseCookie.from("springBootEcommerce", null).

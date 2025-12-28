@@ -1,6 +1,7 @@
 package com.example.eCommerce.service.cart;
 
 import com.example.eCommerce.DTO.cart.CartDTO;
+import com.example.eCommerce.DTO.cart.CartItemDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface CartService {
     String deleteProductFromCart(Long cartId, Long productId);
 
     void updateProductInCarts(Long cartId, Long productId);
+
+    String createOrUpdateCartWithItems(List<CartItemDTO> cartItems);
 }

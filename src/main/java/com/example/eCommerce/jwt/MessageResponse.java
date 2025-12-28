@@ -10,5 +10,4 @@ public class MessageResponse {
     public MessageResponse(String message) {
         this.message = message;
     }
-
 }
