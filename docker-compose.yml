@@ -1,0 +1,29 @@
+version: '3.8'  # always good to specify version
+
+services:
+  db:
+    image: postgres:15
+    container_name: ecommerce-db
+    ports:
+      - "5436:5432"
+    networks:
+      - ecommerce-network
+    env_file:
+      - .env
+
+  app:
+    image: ecommerce-app
+    container_name: ecommerce-app
+    depends_on:
+      - db
+    ports:
+      - "9090:9090"
+    networks:
+      - ecommerce-network
+    env_file:
+      - .env
+
+# Define the network at the bottom
+networks:
+  ecommerce-network:
+    driver: bridge

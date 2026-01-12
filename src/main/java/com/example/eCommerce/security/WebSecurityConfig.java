@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -73,7 +74,9 @@ public class WebSecurityConfig {
                 csrf(csrf -> csrf.disable()).
                 exceptionHandling(
                 exception -> exception.authenticationEntryPoint(unauthorizedHandler)
-                ).cors(Customizer.withDefaults()).sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                ).cors(Customizer.withDefaults())
+                      .sessionManagement(session->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                 auth.requestMatchers("/api/auth/**").permitAll().
                         requestMatchers("/h2-console/**").permitAll().
@@ -81,7 +84,8 @@ public class WebSecurityConfig {
                         requestMatchers("/swagger-ui/**").permitAll().
 //                        requestMatchers("/api/public/**").permitAll().
 //                        requestMatchers("/api/admin/**").permitAll().
-                        requestMatchers("/images/**").permitAll().
+                        requestMatchers("/images/**").permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS).permitAll().
                         anyRequest().authenticated());
         http.authenticationProvider(daoAuthenticationProvider());
         http.addFilterBefore(authTokenFilter(),

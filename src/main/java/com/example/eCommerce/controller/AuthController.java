@@ -45,6 +45,17 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication;
         try {
+            /**
+             * Here is the username and password entered by the user,
+             * At this moment :-
+             * User is Not authenticated
+             * No DB check Yet :-
+             * It is just a container
+             *
+             * After sending request using AuthenticationManager. It has a method called the authenticate() using this we send the request to
+             *  AuthenticationProvider.
+             *  In our case AuthenticationProvider is DaoAuthenticationProvider
+             */
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                             loginRequest.getPassword())

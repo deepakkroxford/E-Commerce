@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Docker files
+docker-compose.override.yml
+*.env   # Important: do NOT push your real .env
+
+# Optional: Docker images (if you store locally)
+*.tar
